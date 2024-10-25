@@ -59,10 +59,33 @@ class IntegerToWord:
 
     def verifyBasic(self):
 
-        # Verifies for 10, 20, 30, 40, 50, 60, 70, 80, 90
-        if len(self.integer) == 2:
-            return self.words[int(self.integer[0])-1]
+        match self.integer:
+            case '10':
+                return 'ten'
+            case '11':
+                return 'eleven'
+            case '12':
+                return 'twelve'
+            case '13':
+                return 'thirteen'
+            case '14':
+                return 'fourteen'
+            case '15':
+                return 'fifteen'
+            case '16':
+                return 'sixteen'
+            case '17':
+                return 'seventeen'
+            case '18':
+                return 'eighteen'
+            case '19':
+                return 'nineteen'
 
+            # Verifies for 20, 30, 40, 50, 60, 70, 80, 90
+        if len(self.integer) == 2:
+            return self.words[int(self.integer[0]) - 1]
+
+            # Verifies for 100, 200, 300, 400, 500, 600, 700, 800, 900
         if len(self.integer) == 3:
             val = self.integer[0]
             self.integer.pop(0)
@@ -71,27 +94,32 @@ class IntegerToWord:
                 return self.numbers[self.integer[0]] + ' hundred'
 
         if len(self.integer) == 4:
-            return self.words[int(self.integer[0])-1]
+            val = self.integer[0]
+            self.integer.pop(0)
+            if int(''.join(self.integer)) == 0:
+                self.integer.insert(0, val)
+                return self.numbers[self.integer[0]] + ' thousand'
 
-        match self.integer:
-            case 11:
-                return 'eleven'
-            case 12:
-                return 'twelve'
-            case 13:
-                return 'thirteen'
-            case 14:
-                return 'fourteen'
-            case 15:
-                return 'fifteen'
-            case 16:
-                return 'sixteen'
-            case 17:
-                return 'seventeen'
-            case 18:
-                return 'eighteen'
-            case 19:
-                return 'nineteen'
+        if len(self.integer) == 7:
+            val = self.integer[0]
+            self.integer.pop(0)
+            if int(''.join(self.integer)) == 0:
+                self.integer.insert(0, val)
+                return self.numbers[self.integer[0]] + ' million'
+
+        if len(self.integer) == 10:
+            val = self.integer[0]
+            self.integer.pop(0)
+            if int(''.join(self.integer)) == 0:
+                self.integer.insert(0, val)
+                return self.numbers[self.integer[0]] + ' billion'
+
+        if len(self.integer) == 13:
+            val = self.integer[0]
+            self.integer.pop(0)
+            if int(''.join(self.integer)) == 0:
+                self.integer.insert(0, val)
+                return self.numbers[self.integer[0]] + ' trillion'
 
     def integerClass(self):
 
@@ -122,7 +150,7 @@ class IntegerToWord:
 
 if __name__ == '__main__':
 
-    integer = 100023450070
+    integer = 123_350_399
 
     ito = IntegerToWord(integer=integer)
     print(ito.zerosGrouping())
